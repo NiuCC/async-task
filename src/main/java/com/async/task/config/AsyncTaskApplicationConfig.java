@@ -4,6 +4,7 @@ import com.async.task.abstracts.AbstractPersistenceHandler;
 import com.async.task.annotations.PersistenceBean;
 import com.async.task.helper.AdderssHelper;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
+import lombok.Data;
 import org.reflections.Reflections;
 
 import java.util.List;
@@ -16,7 +17,16 @@ import java.util.concurrent.TimeUnit;
  * @author liucc
  * 项目入口配置类
  */
+@Data
 public class AsyncTaskApplicationConfig {
+    /**
+     * 线程池核心线程数
+     */
+    private int corePoolSize;
+    /**
+     * 持久化类所在包路径
+     */
+    private String persistenceHandlerPackagePath;
 
     /**
      * 公共任务池
@@ -42,7 +52,7 @@ public class AsyncTaskApplicationConfig {
         return EXECUTOR_SERVICE;
     }
 
-    public AsyncTaskApplicationConfig(int corePoolSize) {
+    public AsyncTaskApplicationConfig() {
         //0.初始化线程池
         this.rebuildThreadPool(corePoolSize);
         //1.加载持久化组件
@@ -76,7 +86,7 @@ public class AsyncTaskApplicationConfig {
      * 反射获取项目入口配置处理器
      */
     private void reflectGetPersistenceHandler() {
-        Reflections reflections = new Reflections("com.async");
+        Reflections reflections = new Reflections(persistenceHandlerPackagePath);
         Set<Class<?>> clazzes = reflections.getTypesAnnotatedWith(PersistenceBean.class);
         for (Class<?> classes : clazzes) {
             try {
