@@ -3,7 +3,7 @@
 ### 是做什么的？
 异步任务框架,解决了异步任务无法实时拿到请求结果的问题,减少对定时任务依赖,达到"异步请求变同步"的效果
 ### 项目架构图
-
+![Image text](./async-task.png)
 ### Maven
 异步任务框架已经部署到公司Maven仓库
 Latest Snapshot Version:
