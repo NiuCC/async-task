@@ -16,11 +16,11 @@
 异步任务框架已经部署到公司Maven仓库
 Latest Snapshot Version:
 ```maven
-    <dependency>
-        <groupId>com.baijia</groupId>
-        <artifactId>async-task</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
-    </dependency>
+<dependency>
+    <groupId>com.baijia</groupId>
+    <artifactId>async-task</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+</dependency>
 ```
 Latest Snapshot Version:
     暂未发布稳定版本, 请期待更新
