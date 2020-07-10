@@ -8,7 +8,7 @@ import com.async.task.annotations.ATExecutorConfig;
  * 实例处理类
  */
 @ATExecutorConfig(maxExecuteCount = 4)
-public class DemoAsyncTaskHandler extends AbstractAsyncTaskHandler<Object, Object, Object> {
+public class DemoAsyncTaskHandler extends AbstractAsyncTaskHandler<Object, Object> {
     @Override
     protected Object processor(Object o) {
         System.out.println("[主任务]订单10001支付中...");

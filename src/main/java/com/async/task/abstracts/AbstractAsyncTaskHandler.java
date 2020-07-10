@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit;
  * @author liucc
  * 异步任务核心处理类
  */
-public abstract class AbstractAsyncTaskHandler<R1, R2, RP> implements AsyncHandler<R1, R2, RP> {
+public abstract class AbstractAsyncTaskHandler<R1, RP> implements AsyncHandler<R1, RP> {
 
     /**
      * 任务状态
@@ -59,7 +59,7 @@ public abstract class AbstractAsyncTaskHandler<R1, R2, RP> implements AsyncHandl
      *
      * @param r2 请求参数
      */
-    protected abstract void postCompensateProcessor(R2 r2);
+    protected abstract void postCompensateProcessor(R1 r1);
 
     /**
      * 异步任务执行器
@@ -69,11 +69,11 @@ public abstract class AbstractAsyncTaskHandler<R1, R2, RP> implements AsyncHandl
      * @return rp 正向流程响应参数
      */
     @Override
-    public RP asyncTaskExecutor(R1 r1, R2 r2) {
+    public RP asyncTaskExecutor(R1 r1) {
         //0.检查必需组件是否初始化完成
         this.checkAllCompenetIfIsOk();
         //1.添加补偿任务到任务池中
-        this.addAsyncTask2ThreadPool(r2);
+        this.addAsyncTask2ThreadPool(r1);
         //2.执行正向业务流程
         return this.processor(r1);
     }
@@ -96,13 +96,13 @@ public abstract class AbstractAsyncTaskHandler<R1, R2, RP> implements AsyncHandl
     /**
      * 添加到任务执行队列中
      */
-    public void addAsyncTask2ThreadPool(R2 r2) {
+    public void addAsyncTask2ThreadPool(R1 r1) {
         //0.初始化任务的创建时间
         this.taskCreateTime = System.currentTimeMillis();
         //1.设置任务为处理中
         this.taskStatusInstance = TaskStatusEnum.P;
         //2.封装异步任务, 持久化到本地
-        final Runnable buildCompensateRunningCommand = () -> buildCompensateRunningCommand(r2);
+        final Runnable buildCompensateRunningCommand = () -> buildCompensateRunningCommand(r1);
         this.persistence2LocalStorage(buildCompensateRunningCommand);
         //3.添加到任务池中,等待执行
         final Long compensateRateSeconds = executeConfig.compensateRateSeconds;
@@ -112,7 +112,7 @@ public abstract class AbstractAsyncTaskHandler<R1, R2, RP> implements AsyncHandl
     /**
      * 任务体
      */
-    private void buildCompensateRunningCommand(R2 r2) {
+    private void buildCompensateRunningCommand(R1 r1) {
         //1.刷新任务状态,检查任务符合结束条件,及时停止任务
         if (!this.checkAsyncTaskIfNeedContinue()) {
             this.taskStatusInstance = TaskStatusEnum.S;
@@ -120,7 +120,7 @@ public abstract class AbstractAsyncTaskHandler<R1, R2, RP> implements AsyncHandl
             return;
         }
         //2.执行任务
-        this.postCompensateProcessor(r2);
+        this.postCompensateProcessor(r1);
         //3.执行次数递增
         this.executeCount++;
     }

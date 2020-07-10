@@ -15,6 +15,6 @@ public class TestDemoAsyncTaskHandler {
         //0.任务全局配置
         new AsyncTaskApplicationConfig();
         //1.实例化Demo,测试一下任务执行情况
-        AsyncHandler.handle(DemoAsyncTaskHandler.class, 1, 2);
+        AsyncHandler.handle(DemoAsyncTaskHandler.class, 1);
     }
 }
