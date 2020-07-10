@@ -3,6 +3,8 @@ package com.async.task.handler;
 import com.async.task.abstracts.AbstractAsyncTaskHandler;
 import com.async.task.annotations.ATExecutorConfig;
 
+import java.util.Random;
+
 /**
  * @author liucc
  * 实例处理类
@@ -16,7 +18,8 @@ public class DemoAsyncTaskHandler extends AbstractAsyncTaskHandler<Object, Objec
     }
 
     @Override
-    protected void postCompensateProcessor(Object o) {
+    protected Boolean postCompensateProcessor(Object o) {
         System.out.println("[补偿任务] 查询订单1001支付状态: 支付成功!");
+        return new Random().nextBoolean();
     }
 }

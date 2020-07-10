@@ -59,7 +59,7 @@ public abstract class AbstractAsyncTaskHandler<R1, RP> implements AsyncHandler<R
      *
      * @param r2 请求参数
      */
-    protected abstract void postCompensateProcessor(R1 r1);
+    protected abstract Boolean postCompensateProcessor(R1 r1);
 
     /**
      * 异步任务执行器
@@ -113,15 +113,13 @@ public abstract class AbstractAsyncTaskHandler<R1, RP> implements AsyncHandler<R
      * 任务体
      */
     private void buildCompensateRunningCommand(R1 r1) {
-        //1.刷新任务状态,检查任务符合结束条件,及时停止任务
-        if (!this.checkAsyncTaskIfNeedContinue()) {
+        //1.刷新任务状态,检查任务符合结束条件; 执行补偿任务,检查任务执行结果
+        if (!this.checkAsyncTaskIfNeedContinue() || this.postCompensateProcessor(r1)) {
             this.taskStatusInstance = TaskStatusEnum.S;
             scheduledFuture.cancel(false);
             return;
         }
-        //2.执行任务
-        this.postCompensateProcessor(r1);
-        //3.执行次数递增
+        //2.执行次数加1
         this.executeCount++;
     }
 
