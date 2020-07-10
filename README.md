@@ -1,10 +1,18 @@
 # async-task 异步任务框架
 
 ### 是做什么的？
-异步任务框架,解决了异步任务无法实时拿到请求结果的问题,减少对定时任务依赖,达到"异步请求变同步"的效果。
+异步任务框架，是一个开源的Java平台，它为更简单的开发Java程序提供了支持。
+
+异步任务,是为了解决异步请求下无法实时拿到请求结果的问题,减少二次补偿逻辑的开发对定时任务的依赖,以达到"异步请求变同步"的效果。
+
 ### 项目架构图
 <img src="./async-task.png" width="50%">
+### 支持环境
+
+要求JDK1.8及以上版本
+
 ### Maven
+
 异步任务框架已经部署到公司Maven仓库
 Latest Snapshot Version:
 ```maven
@@ -52,3 +60,13 @@ public class DemoAsyncTaskHandler extends AbstractAsyncTaskHandler<Object, Objec
     }
 }
 ```
+
+### 发布事件
+
+### 未来规划
+
+### 贡献者
+
+* RD 刘成成 
+
+* QA 刘振兴
