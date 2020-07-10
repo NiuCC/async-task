@@ -4,28 +4,21 @@
 
 ## 是做什么的？ 
 
-## Maven
+## 如何接入？  
+### Maven
 
-squirrel-foundation has been deployed to maven central repository, so you only need to add following  dependency to the pom.xml.
-
-Latest Released Version:
-
-```maven
-<dependency>
-    <groupId>org.squirrelframework</groupId>
-    <artifactId>squirrel-foundation</artifactId>
-    <version>0.3.8</version>
-</dependency>
-```
+异步任务框架已经部署到公司Maven仓库    
 
 Latest Snapshot Version:
 
 ```maven
-<dependency>
-    <groupId>org.squirrelframework</groupId>
-    <artifactId>squirrel-foundation</artifactId>
-    <version>0.3.9-SNAPSHOT</version>
-</dependency>
+        <dependency>
+            <groupId>com.baijia</groupId>
+            <artifactId>async-task</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>
 ```
 
-## Quick Start
+暂无稳定版本~
+
+## 快速开始
