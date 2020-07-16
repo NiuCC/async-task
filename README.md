@@ -26,12 +26,11 @@ Latest Snapshot Version:
     暂未发布稳定版本, 请期待更新
 
 ### 快速开始
-以SpringBoot为例,配置过程如下:
+1.以SpringBoot为例,配置过程如下:
 将AsyncTaskConfig加入配置对象,并设置核心线程池数量以及配置自定义持久化实现类所在的包路径
 ```java
 @Configuration
 public class AsyncTaskConfig {
-
     @Bean(name = "asyncTaskApplicationConfig")
     public AsyncTaskApplicationConfig asyncTaskApplicationConfig() {
         AsyncTaskApplicationConfig asyncTaskApplicationConfig = new AsyncTaskApplicationConfig();
@@ -52,11 +51,23 @@ public class DemoAsyncTaskHandler extends AbstractAsyncTaskHandler<Object, Objec
         System.out.println("[主任务]邀请1001用户进群...");
         return o;
     }
-
     @Override
     protected Boolean postCompensateProcessor(Object o) {
         System.out.println("[补偿任务] 查询1001用户是否在群内: 不在!");
         return new Random().nextBoolean();
+    }
+}
+```
+2.非Spring环境下使用方式
+(1) 初始化全局配置
+(2) 测试
+```java
+public class TestDemoAsyncTaskHandler {
+    public static void main(String[] args) {
+        //0.任务全局配置
+        new AsyncTaskApplicationConfig();
+        //1.实例化Demo,测试一下任务执行情况
+        AsyncHandler.handle(DemoAsyncTaskHandler.class, 1);
     }
 }
 ```
