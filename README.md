@@ -1,4 +1,4 @@
-# Async-Task 异步任务框架
+# Async-Task 异步任务框架(暂停接入)
 
 ### 是做什么的？
 异步任务框架，是一个开源的Java平台，它为更简单的开发Java程序提供了支持。
@@ -17,7 +17,7 @@
 Latest Snapshot Version:
 ```maven
 <dependency>
-    <groupId>com.baijia</groupId>
+    <groupId>com.xxx</groupId>
     <artifactId>async-task</artifactId>
     <version>1.0.0-SNAPSHOT</version>
 </dependency>
